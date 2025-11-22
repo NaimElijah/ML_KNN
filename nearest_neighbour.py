@@ -341,10 +341,18 @@ def Q2e_corrupt_labels(features, labels):
     return features, labels
 
 
+def small_test():
+    k = 1
+    x_train = np.array([[1, 2], [3, 4], [5, 6]])
+    y_train = np.array([1, 0, 1])
+    classifier = learnknn(k, x_train, y_train)
+    x_test = np.array([[10, 11], [3.1, 4.2], [2.9, 4.2], [5, 6]])
+    y_testprediction = predictknn(classifier, x_test)
+    print(y_testprediction)
 
 
 if __name__ == '__main__':
-    # before submitting, make sure that the function simple_test runs without errors
+    # small_test()
     # simple_test()
     # Q2a_code()
     # Q2d_code()
