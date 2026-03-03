@@ -8,7 +8,7 @@ A full KNN implementation from scratch in Python, including:
 * Error analysis across sample sizes, k-values, and corrupted labels
 * Visual plots of performance
 
-This project was part of a university machine learning assignment and focuses on implementing and analyzing the K-Nearest Neighbors algorithm **without relying on scikit-learn**.
+This project focuses on implementing and analyzing the K-Nearest Neighbors algorithm **without relying on scikit-learn**.
 
 ---
 
@@ -35,8 +35,8 @@ The entire pipeline is designed to be self-contained and educational.
 ## **📂 Repository Structure**
 
 ```
-├── main.py                   # Contains all KNN functions and experiment code
-├── mnist_all.npz            # MNIST dataset (should be placed in project root)
+├── nearest_neighbour.py.py    # Contains all KNN functions and experiment code
+├── mnist_all.npz              # MNIST dataset (should be placed in project root)
 └── README.md
 ```
 
