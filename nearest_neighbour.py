@@ -27,7 +27,6 @@ def gensmallm(x_list: list, y_list: list, m: int):
 
 
 
-# TODO: complete the following functions, you may add auxiliary functions or define class to help you
 
 def learnknn(k: int, x_train: np.array, y_train: np.array):
     """
@@ -59,20 +58,13 @@ def predictknn(classifier, x_test: np.array):
     x_test_sq = np.sum(x_test ** 2, axis=1)
 
     # Compute distance matrix: ||a - b||^2 = ||a||^2 + ||b||^2 - 2 a·b
-    dists = np.sqrt(
-        x_test_sq[:, None] +
-        x_train_sq[None, :] -
-        2 * (x_test @ x_train.T)
-    )
+    dists = np.sqrt(x_test_sq[:, None] + x_train_sq[None, :] - 2 * (x_test @ x_train.T))
 
     # Find k nearest neighbors for each test sample
     nn_idx = np.argpartition(dists, k, axis=1)[:, :k]
 
     # Majority vote for each row
-    preds = np.array([
-        np.bincount(y_train[neighbors]).argmax()
-        for neighbors in nn_idx
-    ])
+    preds = np.array([np.bincount(y_train[neighbors]).argmax() for neighbors in nn_idx])
 
     return preds.reshape(-1, 1)
 
@@ -159,7 +151,6 @@ def Q2a_code():
         capsize=4,
         markersize=3
     )
-
     plt.xlabel("Training sample size (m)", fontsize=12)
     plt.ylabel("Average test error (k=1)", fontsize=12)
     plt.title("Q2(a) — Test Error vs Training Size (k=1)", fontsize=14)
@@ -201,9 +192,7 @@ def Q2d_code():
                 x_train, y_train = gensmallm(train_sets, train_labels, m)
                 y_train = y_train.astype(int)
 
-                # -------------------------
                 # FAST vectorized distance matrix
-                # -------------------------
                 x_train_sq = np.sum(x_train ** 2, axis=1)
                 x_test_sq = np.sum(X_test ** 2, axis=1)
                 dists = np.sqrt(
@@ -212,14 +201,10 @@ def Q2d_code():
                     2 * (X_test @ x_train.T)
                 )
 
-                # -------------------------
                 # Get k nearest neighbors
-                # -------------------------
                 nn_idx = np.argpartition(dists, k, axis=1)[:, :k]
 
-                # -------------------------
                 # Majority vote per test point
-                # -------------------------
                 preds = np.array([
                     np.bincount(y_train[row]).argmax()
                     for row in nn_idx
@@ -230,12 +215,9 @@ def Q2d_code():
 
             avg_err_for_k.append(np.mean(errors))
 
-        # -------------------------
         # Plotting
-        # -------------------------
         plt.figure(figsize=(10, 6))
         plt.plot(ks, avg_err_for_k, marker='o')
-
         plt.xlabel("k (number of neighbors)", fontsize=12)
         plt.ylabel("Average test error", fontsize=12)
         plt.title(f"Q2(d) — Test Error vs k (Training size m = {m})", fontsize=14)
@@ -258,8 +240,8 @@ def Q2e_code():
     # Build full test set once
     X_test = np.vstack([data[f"test{d}"] for d in digits])
     y_test = np.hstack([np.full(len(data[f"test{d}"]), d) for d in digits]).astype(int)
-    #################
-    x_test, y_test = Q2e_corrupt_labels(X_test, y_test)   # corrupting as instructed in Q2e
+
+    x_test, y_test = Q2e_corrupt_labels(X_test, y_test)   # Corrupting as instructed in Q2e
 
     # Training sources
     train_sets = [data[f"train{d}"] for d in digits]
@@ -279,12 +261,10 @@ def Q2e_code():
 
                 # Sample m training examples
                 x_train, y_train = gensmallm(train_sets, train_labels, m)
-                x_train , y_train = Q2e_corrupt_labels(x_train , y_train)   # corrupting as instructed in Q2e
+                x_train , y_train = Q2e_corrupt_labels(x_train , y_train)   # Corrupting as instructed in Q2e
                 y_train = y_train.astype(int)
 
-                # -------------------------
                 # FAST vectorized distance matrix
-                # -------------------------
                 x_train_sq = np.sum(x_train ** 2, axis=1)
                 x_test_sq = np.sum(X_test ** 2, axis=1)
                 dists = np.sqrt(
@@ -293,30 +273,20 @@ def Q2e_code():
                     2 * (X_test @ x_train.T)
                 )
 
-                # -------------------------
                 # Get k nearest neighbors
-                # -------------------------
                 nn_idx = np.argpartition(dists, k, axis=1)[:, :k]
 
-                # -------------------------
                 # Majority vote per test point
-                # -------------------------
-                preds = np.array([
-                    np.bincount(y_train[row]).argmax()
-                    for row in nn_idx
-                ])
+                preds = np.array([np.bincount(y_train[row]).argmax() for row in nn_idx])
 
                 # Error
                 errors.append(np.mean(preds != y_test))
 
             avg_err_for_k.append(np.mean(errors))
 
-        # -------------------------
         # Plotting
-        # -------------------------
         plt.figure(figsize=(10, 6))
         plt.plot(ks, avg_err_for_k, marker='o')
-
         plt.xlabel("k (number of neighbors)", fontsize=12)
         plt.ylabel("Average test error (Corrupted Case)", fontsize=12)
         plt.title(f"Q2(e) — Test Error vs k (Training size m = {m})", fontsize=14)
